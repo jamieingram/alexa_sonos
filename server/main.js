@@ -89,12 +89,11 @@ alexa_app.intent('Play',
     var type = 'album';
 
     //check if anything has been passed for artist or track
-
     if (!room) {
       if (artist) response.session('artist',artist);
       if (track) response.session('track',track);
-      response.say('which room would you like Sonos to play in?').reprompt('Where?');
-      response.shouldEndSession(false);
+      var prompt = 'which room would you like music to play in?';
+      response.say(prompt).reprompt(prompt).shouldEndSession(false);
     }else{
       //search the Spotify API for something appropriate
       var query = '';
@@ -104,37 +103,42 @@ alexa_app.intent('Play',
         type = 'track';
       }
       if (query != '') {
-        if (type == 'album') {
-          spotify_api.searchAlbums(query)
-            .then(function(data) {
-              var albums = data.body['albums']['items'];
-              var album = albums[0];
-              id = album.id;
-              console.log('ID 1 = '+id);
-            }, function(err) {
-              console.error(err);
-            });
-        }else{
-          spotify_api.searchTracks(query)
-            .then(function(data) {
-              console.log('Track search: '+query, data.body);
-            }, function(err) {
-              console.error(err);
-            });
-        }
+        getSpotifyAlbum(query).then(function(album) {
+          var artist = album.artists[0].name;
+          sendSocketMessage('album', album.id, room);
+          response.say('playing '+ album.name + ' by ' + artist).send();
+        });
+        return false;
 
       }else {
         //no query has been passed - just unpause the music
 
       }
-      //send a socket message to the proxy client
-      console.log('ID 2 = '+id);
-      console.log('sending',type, id);
-      io.emit('sonos:play', {'type':type, 'id': id});
-      response.say('Playing in the '+room);
     }
+    return false;
   }
 );
+
+function getSpotifyAlbum(query) {
+  return new Promise(function (resolve, reject) {
+    spotify_api.searchAlbums(query, { limit: 10 }, function(err, data) {
+      if (err) {
+        reject(err);
+        process.exit();
+      }
+      var albums = data.body.albums.items;
+      var album = albums[0];
+      var id = album.id;
+      resolve(album);
+    });
+  });
+}
+
+function sendSocketMessage(type, id, room) {
+    //send a socket message to the proxy client
+    console.log('sending play response',type, id);
+    io.emit('sonos:play', {'type':type, 'id': id});
+}
 
 alexa_app.express(express_app, '/echo/', true);
 

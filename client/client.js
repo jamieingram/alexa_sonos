@@ -24,7 +24,6 @@ socket.on('sonos:play', function (data) {
   }).on("error", function(e){
     console.log("Got error: " + e.message);
   });
-  //arran:5005/Living Room/spotify/now/spotify:album:1cM3r0WQZWNkCpEbmFjLln
 });
 
 socket.on('sonos:stop', function (data) {
