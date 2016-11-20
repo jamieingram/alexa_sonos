@@ -1,0 +1,10 @@
+{
+  "Server": {
+    "host": "lingobee.com",
+    "port": 80
+  },
+  "Sonos": {
+    "host": "arran",
+    "port": 5005
+  }
+}
