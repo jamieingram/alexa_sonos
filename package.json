@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "alexa-app-server": "git+https://git@github.com/matt-kruse/alexa-app-server.git",
+    "config": "^1.24.0",
     "socket.io": "^1.5.1"
   }
 }

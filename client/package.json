@@ -9,6 +9,7 @@
   "author": "@jamie_ingram",
   "license": "ISC",
   "dependencies": {
+    "config": "^1.24.0",
     "socket.io-client": "^1.5.1"
   }
 }

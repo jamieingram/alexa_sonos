@@ -9,6 +9,7 @@
   "author": "@jamie_ingram",
   "license": "ISC",
   "dependencies": {
+    "config": "^1.24.0",
     "alexa-app": "^2.3.4",
     "alexa-verifier": "0.0.5",
     "body-parser": "^1.15.2",

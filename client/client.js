@@ -1,7 +1,10 @@
-const io = require('socket.io-client');
-const http = require('http');
+var io = require('socket.io-client');
+var http = require('http');
+var config = require('config');
 
-const socket = io.connect('http://localhost:8080', {reconnect: true});
+var host = config.get('Server.host');
+var port = config.get('Server.port');
+var socket = io.connect('http://'+host+':'+port, {reconnect: true});
 
 // Add a connect listener
 socket.on('connect', function (socket) {
@@ -27,8 +30,8 @@ socket.on('sonos:unpause', function (data) {
 
 function sendHTTPCommand(path) {
   var options = {
-    host: 'arran',
-    port: 5005,
+    host: config.get('Sonos.host'),
+    port: config.get('Sonos.port'),
     path: path
   };
 
