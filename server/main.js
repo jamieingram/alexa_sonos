@@ -103,23 +103,49 @@ alexa_app.intent('Play',
         type = 'track';
       }
       if (query != '') {
-        getSpotifyAlbum(query).then(function(album) {
-          var artist = album.artists[0].name;
-          sendSocketMessage('album', album.id, room);
-          response.say('playing '+ album.name + ' by ' + artist).send();
-        });
+        if (type == 'album') {
+          getSpotifyAlbum(query).then(function(album) {
+            var artist = album.artists[0].name;
+            sendSocketMessage('play', room, 'album', album.id);
+            response.say('playing '+ album.name + ' by ' + artist).send();
+          });
+        }else{
+          //search for a track
+          getSpotifyTrack(query).then(function(track) {
+            var artist = track.artists[0].name;
+            sendSocketMessage('play', room,'track', track.id);
+            response.say('playing '+ track.name + ' by ' + artist).send();
+          });
+        }
         return false;
 
       }else {
         //no query has been passed - just unpause the music
-
+        sendSocketMessage('play', room);
+        response.say('playing in the '+room).send();
       }
     }
     return false;
   }
 );
 
+alexa_app.intent('Pause',
+  {
+    'slots':{'room':'ROOM'}
+    ,'utterances':[
+      'pause in the {room}',
+      'pause'
+    ]
+  },
+  function(request,response) {
+    var room = request.slot('room');
+    sendSocketMessage('pause', room);
+    response.say('pausing in the '+room).send();
+  }
+);
+
 function getSpotifyAlbum(query) {
+  console.log('get spotify album');
   return new Promise(function (resolve, reject) {
     spotify_api.searchAlbums(query, { limit: 10 }, function(err, data) {
       if (err) {
@@ -134,10 +160,35 @@ function getSpotifyAlbum(query) {
   });
 }
 
-function sendSocketMessage(type, id, room) {
+function getSpotifyTrack(query) {
+  return new Promise(function (resolve, reject) {
+    spotify_api.searchTracks(query, { limit: 10 }, function(err, data) {
+      if (err) {
+        reject(err);
+        process.exit();
+      }
+      var tracks = data.body.tracks.items;
+      var track = tracks[0];
+      resolve(track);
+    });
+  });
+}
+
+function sendSocketMessage(command, room, type, id) {
     //send a socket message to the proxy client
-    console.log('sending play response',type, id);
-    io.emit('sonos:play', {'type':type, 'id': id});
+    if (command == 'play') {
+      if (id) {
+        console.log('sending play response',type, id);
+        io.emit('sonos:play', {'type':type, 'id': id, 'room':room});
+      }else {
+        io.emit('sonos:unpause', {'room':room});
+      }
+    }
+
+    if (command == 'pause') {
+      io.emit('sonos:pause', {'room':room});
+    }
+
 }
 
 alexa_app.express(express_app, '/echo/', true);

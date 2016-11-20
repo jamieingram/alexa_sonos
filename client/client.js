@@ -11,10 +11,25 @@ socket.on('connect', function (socket) {
 socket.on('sonos:play', function (data) {
   console.log(data);
   //we now have a room target
+  var path = '/'+escape(data.room)+'/spotify/now/spotify:album:'+data.id;
+  sendHTTPCommand(path);
+});
+
+socket.on('sonos:pause', function (data) {
+  var path = '/'+escape(data.room)+'/pause';
+  sendHTTPCommand(path);
+});
+
+socket.on('sonos:unpause', function (data) {
+  var path = '/'+escape(data.room)+'/play';
+  sendHTTPCommand(path);
+});
+
+function sendHTTPCommand(path) {
   var options = {
     host: 'arran',
     port: 5005,
-    path: '/Living%20Room/play'
+    path: path
   };
 
   http.get(options, function(resp){
@@ -24,8 +39,4 @@ socket.on('sonos:play', function (data) {
   }).on("error", function(e){
     console.log("Got error: " + e.message);
   });
-});
-
-socket.on('sonos:stop', function (data) {
-
-});
+}
