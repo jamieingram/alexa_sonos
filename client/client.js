@@ -1,7 +1,7 @@
 const io = require('socket.io-client');
 const http = require('http');
 
-const socket = io.connect('http://localhost:3000', {reconnect: true});
+const socket = io.connect('http://localhost:8080', {reconnect: true});
 
 // Add a connect listener
 socket.on('connect', function (socket) {
