@@ -27,7 +27,7 @@
     "live" : {
       "user" : "jamie",
       "host" : "lingobee.com",
-      "ref"  : "origin/develop",
+      "ref"  : "origin/master",
       "repo" : "git@github.com:jamieingram/alexa_sonos.git",
       "path" : "/lingobee/data/www/lingobee/alexa_sonos/alexa_sonos_live",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env live",
