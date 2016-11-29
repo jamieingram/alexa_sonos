@@ -1,0 +1,26 @@
+{
+  "apps" : [
+    {
+      "name"      : "alexa-skills-live",
+      "script"    : "server.js",
+      "watch"     : true,
+      "env_live" : {
+        "NODE_ENV": "live"
+      }
+    }
+  ],
+
+  "deploy" : {
+    "live" : {
+      "user" : "jamie",
+      "host" : "lingobee.com",
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:jamieingram/alexa_sonos.git",
+      "path" : "/lingobee/data/www/lingobee/alexa_sonos/alexa_sonos_live",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env live",
+      "env"  : {
+        "NODE_ENV": "live"
+      }
+    }
+  }
+}
