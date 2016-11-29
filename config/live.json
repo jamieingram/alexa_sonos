@@ -1,6 +1,6 @@
 {
   "Server": {
-    "host": "lingobee.com",
-    "port": 8080
+    "host": "localhost",
+    "port": 8081
   }
 }

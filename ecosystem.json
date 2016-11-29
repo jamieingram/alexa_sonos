@@ -3,6 +3,7 @@
     {
       "name"      : "alexa-skills",
       "script"    : "server.js",
+      "watch"     : true,
       "env_stage" : {
         "NODE_ENV": "stage"
       },
