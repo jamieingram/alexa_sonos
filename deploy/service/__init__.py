@@ -1,3 +1,0 @@
-""" Service helper functions.
-
-"""

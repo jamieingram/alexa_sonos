@@ -7,7 +7,6 @@ from deploy.env import bootstrap as _bootstrap
 from deploy.decorators import pre_hooks, post_hooks
 from deploy.http.nginx import (restart_nginx, reload_nginx, stop_nginx,
                                start_nginx)
-from deploy.service.supervisord import list_programs, start, stop, restart
 from deploy.scm.git import deploy as _deploy
 from deploy.target import live, stage
 
@@ -17,7 +16,7 @@ env.project = 'alexa_sonos'
 # Paths & Directories
 env.root_path = '/lingobee/data/www/'
 env.directories = {
-    'media': None, 'static': None, 'logs': None, 'src': None,
+    'media': None, 'static': None, 'logs': None,
 }
 
 # Users
@@ -36,10 +35,3 @@ env.hosts = [
 
 def bootstrap():
     _bootstrap()
-
-
-@post_hooks(
-    'deploy.scm.git.clean',
-)
-def deploy(branch, **kwargs):
-    _deploy(branch)

@@ -1,3 +1,0 @@
-""" Wordpress / PHP helper functions.
-
-"""
