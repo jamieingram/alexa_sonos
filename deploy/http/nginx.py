@@ -69,7 +69,7 @@ def restart_nginx():
     """
 
     puts(yellow('[Nginx] Restarting'))
-    _sudo('/etc/init.d/nginx restart')
+    _sudo('service nginx restart')
 
 
 def reload_nginx():
@@ -78,7 +78,7 @@ def reload_nginx():
     """
 
     puts(yellow('[Nginx] Reloading'))
-    _sudo('/etc/init.d/nginx reload')
+    _sudo('service nginx reload')
 
 
 def stop_nginx():
@@ -87,7 +87,7 @@ def stop_nginx():
     """
 
     puts(red('[Nginx] Stopping'))
-    _sudo('/etc/init.d/nginx stop')
+    _sudo('service nginx stop')
 
 
 def start_nginx():
@@ -96,4 +96,4 @@ def start_nginx():
     """
 
     puts(green('[Nginx] Starting'))
-    _sudo('/etc/init.d/nginx start')
+    _sudo('service nginx start')
