@@ -90,7 +90,7 @@ def _target(name):
     :type target_path: str.
     """
 
-    from velcro.conf import settings
+    from conf import settings
 
     puts(blue('Set target: ') + green(name.title(), bold=True))
 
@@ -152,7 +152,7 @@ def print_config_path():
         fab live print_config_path
     """
 
-    from velcro.conf import settings
+    from conf import settings
     puts(blue('Config Path: {0}'.format(settings.CONFIG_PATH())))
 
 
@@ -177,7 +177,7 @@ def print_local_config_path():
         fab live print_local_config_path
     """
 
-    from velcro.conf import settings
+    from conf import settings
     puts(blue('Config Path: {0}'.format(settings.LOCAL_CONFIG_PATH())))
 
 
@@ -195,7 +195,7 @@ def cdn_timestamp():
         @post_hooks(
             'velcro.utils.cdn_timestamp',
     """
-    from velcro.conf import settings
+    from conf import settings
 
     timestamp = str(int(time.time()))
     timestamp_path = os.path.join(settings.SRC_PATH(), 'src', env.project,

@@ -6,9 +6,5 @@
   "SocketServer": {
     "host": "localhost",
     "port": 5000
-  },
-  "Sonos": {
-    "host": "arran",
-    "port": 5005
   }
 }
