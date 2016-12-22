@@ -58,7 +58,7 @@ app.intent('Play',
         if (type == 'album') {
           getSpotifyAlbum(query).then(function(album) {
             var artist = album.artists[0].name;
-            ketMessage('play', room, 'album', album.id);
+            sendSocketMessage('play', room, 'album', album.id);
             response.say('playing '+ album.name + ' by ' + artist).send();
           });
         }else{

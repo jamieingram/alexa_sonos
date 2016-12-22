@@ -3,9 +3,8 @@ var http = require('http');
 var config = require('config');
 
 var host = config.get('SocketServer.host');
-var port = config.get('SocketServer.port');
 
-console.log('connecting to '+'https://'+host + "/ws/");
+console.log('connecting to '+'https://'+host);
 var socket = io.connect('https://'+host, {reconnect: true});
 
 // Add a connect listener
