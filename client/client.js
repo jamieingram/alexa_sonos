@@ -5,8 +5,8 @@ var config = require('config');
 var host = config.get('SocketServer.host');
 var port = config.get('SocketServer.port');
 
-console.log('connecting to '+'http://'+host+':'+port);
-var socket = io.connect('http://'+host+':'+port, {reconnect: true});
+console.log('connecting to '+'https://'+host + "/ws/");
+var socket = io.connect('https://'+host, {reconnect: true});
 
 // Add a connect listener
 socket.on('connect', function (socket) {
