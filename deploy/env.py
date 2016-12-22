@@ -97,7 +97,7 @@ def _git_init():
     """ Create Git repository in settings.SRC_PATH()
     """
 
-    from velcro.conf import settings
+    from conf import settings
 
     puts(blue('Initialising git repository'))
     command = 'if [ ! -d ./.git ]; then git init && git config '\

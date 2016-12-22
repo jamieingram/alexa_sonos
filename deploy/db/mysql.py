@@ -44,7 +44,7 @@ def create_database(**kwargs):
         Supports pre and post hooks
     """
 
-    from velcro.conf import settings
+    from conf import settings
 
     safe = re.compile('[\W]+', re.UNICODE)
 

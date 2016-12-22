@@ -21,7 +21,7 @@ class Config(object):
 
     .. note::
        Do not call this directly, use:
-       velcro.conf import settings
+       conf import settings
        settings.IS_STATIC().
     """
 
