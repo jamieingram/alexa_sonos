@@ -1,6 +1,10 @@
 {
-  "Server": {
-    "host": "localhost",
+  "HTTPServer": {
+    "host": "live.alexa.lingobee.com",
+    "port": 8001
+  },
+  "SocketServer": {
+    "host": "live.alexa.lingobee.com",
     "port": 8081
   }
 }

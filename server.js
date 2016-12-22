@@ -7,8 +7,9 @@ var server = new AlexaAppServer ({
     public_html:"public_html",    // Static content
     app_dir:"apps",               // Where alexa-app modules are stored
     app_root:"/alexa/",           // Service root
-    port:config.get('Server.port')// What port to use
+    port:config.get('HTTPServer.port')// What port to use
 }).start();
 
 var socket = require('./socket.js');
-var io = socket.init(server);
+var port = config.get('SocketServer.port');
+var io = socket.init(port);

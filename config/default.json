@@ -1,7 +1,11 @@
 {
-  "Server": {
-    "host": "lingobee.com",
-    "port": 8080
+  "HTTPServer": {
+    "host": "localhost",
+    "port": 8000
+  },
+  "SocketServer": {
+    "host": "localhost",
+    "port": 5000
   },
   "Sonos": {
     "host": "arran",
