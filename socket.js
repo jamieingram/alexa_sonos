@@ -1,7 +1,7 @@
 var Socket = module.exports = {
   io: null,
-  init: function(server) {
-    this.io = require('socket.io')(server);
+  init: function(port) {
+    this.io = require('socket.io').listen(port);
     this.io.on('connection', (socket) => {
       console.log('a user connected');
 

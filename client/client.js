@@ -2,8 +2,10 @@ var io = require('socket.io-client');
 var http = require('http');
 var config = require('config');
 
-var host = config.get('Server.host');
-var port = config.get('Server.port');
+var host = config.get('SocketServer.host');
+var port = config.get('SocketServer.port');
+
+console.log('connecting to '+'http://'+host+':'+port);
 var socket = io.connect('http://'+host+':'+port, {reconnect: true});
 
 // Add a connect listener
